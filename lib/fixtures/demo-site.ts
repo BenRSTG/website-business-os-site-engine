@@ -254,6 +254,7 @@ export function buildDemoBundle(style: SiteStyle): SiteBundle {
       preview_slug: `weber-${style}`,
       preview_protected: false,
       preview_expires_at: null,
+      preview_password_set_at: null,
       custom_domain: null,
       primary_phone: PHONE,
       primary_cta_label: "Jetzt anrufen",

@@ -20,7 +20,10 @@ export function proxy(request: NextRequest) {
 
   const url = request.nextUrl.clone();
   url.pathname = decision.pathname;
-  return NextResponse.rewrite(url);
+  const response = NextResponse.rewrite(url);
+  // Vorschauen (Slug oder Pfad-Fallback) können passwortgeschützt sein: nie in einem gemeinsamen Cache ablegen.
+  if (/^\/s\/(slug|path)%3A/.test(decision.pathname)) response.headers.set("Cache-Control", "private, no-store");
+  return response;
 }
 
 export const config = {

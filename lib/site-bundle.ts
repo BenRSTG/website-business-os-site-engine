@@ -8,6 +8,7 @@ export interface SiteRow {
   preview_slug: string | null;
   preview_protected: boolean;
   preview_expires_at: string | null;
+  preview_password_set_at: string | null;
   custom_domain: string | null;
   primary_phone: string | null;
   primary_cta_label: string;
@@ -37,4 +38,9 @@ export function slugFromPath(segments: string[] | undefined): string | null {
 
 export function findPage(bundle: SiteBundle, slug: string): PageRow | undefined {
   return bundle.pages.find((p) => p.slug === slug);
+}
+
+/** Cache-Schlüssel einer Website: nur nach Vorschau-Adresse oder Domain, damit eine Aktualisierung alle Zugriffsarten leert. */
+export function siteTag(value: string): string {
+  return `site:${value}`;
 }

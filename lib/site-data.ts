@@ -1,31 +1,27 @@
 import "server-only";
-import { createClient } from "@supabase/supabase-js";
 import { cacheLife, cacheTag } from "next/cache";
-import { env } from "./env";
+import { createAnonClient } from "./supabase";
 import { parseSiteKey } from "./routing";
-import type { PageRow, SiteBundle, SiteRow } from "./site-bundle";
+import { siteTag, type PageRow, type SiteBundle, type SiteRow } from "./site-bundle";
 import { STYLE_PRESETS, designTokensSchema, type DesignTokens } from "./tokens";
 
 // Ausdrücklich nur die Spalten, die der anon key lesen darf — `select *` wäre durch die Spaltenrechte verboten
 // (Passwort-Hash, Organisation, Lead-Bezug und KI-Kosten sind für anon gesperrt, siehe Migration 0007).
 const SITE_COLUMNS =
-  "id, company_name, style, status, preview_slug, preview_protected, preview_expires_at, custom_domain, primary_phone, primary_cta_label";
+  "id, company_name, style, status, preview_slug, preview_protected, preview_expires_at, preview_password_set_at, custom_domain, primary_phone, primary_cta_label";
 
 /**
  * Lädt Website, Design-Tokens und Seiten für einen Schlüssel ("slug:<x>" oder "host:<domain>").
- * Gecacht und per Tag "site:<key>" invalidierbar (Revalidierung durch das Dashboard folgt mit Milestone 5).
+ * Gecacht und per Tag "site:<slug oder domain>" invalidierbar (Endpunkt /api/revalidate, aufgerufen vom Dashboard).
  */
 export async function loadSiteBundle(key: string): Promise<SiteBundle | null> {
   "use cache";
   cacheLife("minutes");
-  cacheTag(`site:${key}`);
-
   const lookup = parseSiteKey(key);
   if (!lookup) return null;
+  cacheTag(siteTag(lookup.value));
 
-  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
+  const supabase = createAnonClient();
 
   // Row-Level-Security entscheidet, was sichtbar ist (LIVE oder nicht abgelaufene PREVIEW). Kundendomains zeigen
   // zusätzlich nur LIVE-Sites.
