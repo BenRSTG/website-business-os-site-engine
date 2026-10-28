@@ -74,3 +74,30 @@ describe("jsonLdString", () => {
     expect(JSON.parse(out).name).toBe("</script><script>alert(1)</script>");
   });
 });
+
+describe("Feature-Abschnitte (4C)", () => {
+  const ph = { slot_id: "g1", alt: "Bild", source: "placeholder" as const };
+  const valid = {
+    hours: { component_type: "hours", variant: "standard", content: { headline: "Zeiten", hours: [{ days: "Mo–Fr", hours: "[bitte ergänzen]" }] } },
+    gallery: { component_type: "gallery", variant: "grid", content: { headline: "Referenzen", items: [1, 2, 3].map((n) => ({ image: { ...ph, slot_id: `g${n}` }, caption: `Bild ${n}` })) } },
+    pricing: { component_type: "pricing", variant: "cards", content: { headline: "Preise", items: [{ title: "Paket", price: "[Preis ergänzen]", description: "Beschreibung" }] } },
+    team: { component_type: "team", variant: "cards", content: { headline: "Team", members: [{ name: "[Name ergänzen]", role: "Inhaber" }] } },
+    booking: { component_type: "booking", variant: "request-form", content: { headline: "Termin anfragen" } },
+  };
+
+  it.each(Object.entries(valid))("%s ist gültig", (_name, section) => {
+    expect(sectionSchema.safeParse(section).success).toBe(true);
+  });
+
+  it("Galerie braucht mindestens drei Bilder, Preise mindestens ein Paket, Team mindestens eine Person", () => {
+    expect(sectionSchema.safeParse({ ...valid.gallery, content: { ...valid.gallery.content, items: valid.gallery.content.items.slice(0, 2) } }).success).toBe(false);
+    expect(sectionSchema.safeParse({ ...valid.pricing, content: { ...valid.pricing.content, items: [] } }).success).toBe(false);
+    expect(sectionSchema.safeParse({ ...valid.team, content: { ...valid.team.content, members: [] } }).success).toBe(false);
+  });
+
+  it("unbekannte Varianten und echte Bilder ohne Adresse werden abgelehnt", () => {
+    expect(sectionSchema.safeParse({ ...valid.booking, variant: "kalender" }).success).toBe(false);
+    const bad = { ...valid.gallery, content: { ...valid.gallery.content, items: valid.gallery.content.items.map((i) => ({ ...i, image: { ...i.image, source: "stock" } })) } };
+    expect(sectionSchema.safeParse(bad).success).toBe(false);
+  });
+});

@@ -107,6 +107,30 @@ function home(v: Variants): Section[] {
       },
     },
     {
+      component_type: "team",
+      variant: "cards",
+      content: {
+        headline: "Ihre Ansprechpartner",
+        members: [
+          { name: "Herr Weber", role: "Inhaber und Ansprechpartner" },
+          { name: "[Name ergänzen]", role: "[Funktion ergänzen]" },
+        ],
+      },
+    },
+    {
+      component_type: "gallery",
+      variant: "grid",
+      content: {
+        headline: "Einblicke in unsere Arbeit",
+        intro: "Eine Auswahl aus aktuellen Projekten.",
+        items: [
+          { image: placeholder("gallery-1", "Fertige Elektroinstallation"), caption: "Neuer Verteilerschrank im Einfamilienhaus" },
+          { image: placeholder("gallery-2", "Beleuchtung im Treppenhaus"), caption: "Beleuchtung im Treppenhaus" },
+          { image: placeholder("gallery-3", "Ladestation an einer Garage"), caption: "Ladestation für ein Elektroauto" },
+        ],
+      },
+    },
+    {
       component_type: "testimonials",
       variant: v.testimonials,
       content: {
@@ -150,6 +174,20 @@ function services(v: Variants): Section[] {
       },
     },
     {
+      component_type: "pricing",
+      variant: "cards",
+      content: {
+        headline: "Preise und Pakete",
+        intro: "Transparent, damit Sie vorab wissen, womit Sie rechnen können.",
+        note: "Alle Angaben unverbindlich. Den genauen Preis nennen wir nach einer Besichtigung.",
+        items: [
+          { title: "Kleinauftrag", price: "[Preis ergänzen]", description: "Einzelne Steckdosen, Leuchten oder eine schnelle Reparatur.", features: ["Beratung vor Ort", "Saubere Ausführung"] },
+          { title: "Projekt", price: "[Preis ergänzen]", description: "Umbau, Erweiterung oder Neuinstallation nach Absprache.", features: ["Planung", "Dokumentation"] },
+          { title: "Prüfung und Wartung", price: "[Preis ergänzen]", description: "Wiederkehrende Prüfung elektrischer Anlagen." },
+        ],
+      },
+    },
+    {
       component_type: "faq",
       variant: "accordion",
       content: {
@@ -178,6 +216,27 @@ function contact(v: Variants): Section[] {
           { days: "Notdienst", hours: "rund um die Uhr" },
         ],
         form_note: "Die Daten aus dem Formular verwenden wir nur, um Ihre Anfrage zu beantworten.",
+      },
+    },
+    {
+      component_type: "booking",
+      variant: "request-form",
+      content: {
+        headline: "Termin anfragen",
+        intro: "Nennen Sie uns Ihren Wunschtermin, wir bestätigen ihn persönlich.",
+      },
+    },
+    {
+      component_type: "hours",
+      variant: "standard",
+      content: {
+        headline: "Erreichbarkeit",
+        hours: [
+          { days: "Montag bis Freitag", hours: "7:30 bis 17:00 Uhr" },
+          { days: "Samstag", hours: "[bitte ergänzen]" },
+        ],
+        area_headline: "Einsatzgebiet",
+        area_text: "Lahr und die Umgebung. [Genaues Gebiet ergänzen]",
       },
     },
     {

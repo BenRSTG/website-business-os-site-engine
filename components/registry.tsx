@@ -2,14 +2,19 @@ import type { ReactNode } from "react";
 import type { Section } from "@/lib/content/schemas";
 import type { SiteContext } from "@/lib/site-context";
 import { About } from "./sections/About";
+import { Booking } from "./sections/Booking";
 import { Contact } from "./sections/Contact";
 import { Faq } from "./sections/Faq";
 import { Footer } from "./sections/Footer";
+import { Gallery } from "./sections/Gallery";
 import { Hero } from "./sections/Hero";
+import { Hours } from "./sections/Hours";
 import { Legal } from "./sections/Legal";
 import { Location } from "./sections/Location";
 import { Navbar } from "./sections/Navbar";
+import { Pricing } from "./sections/Pricing";
 import { Services } from "./sections/Services";
+import { Team } from "./sections/Team";
 import { Testimonials } from "./sections/Testimonials";
 
 // Component-Registry: "{component_type}.{variant}" → Komponente. Eine neue Variante ist ein Eintrag hier plus die
@@ -36,6 +41,11 @@ export const registry: Record<string, Renderer> = {
   "location.map-text": entry(Location),
   "footer.standard": entry(Footer),
   "legal.standard": entry(Legal),
+  "hours.standard": entry(Hours),
+  "gallery.grid": entry(Gallery),
+  "pricing.cards": entry(Pricing),
+  "team.cards": entry(Team),
+  "booking.request-form": entry(Booking),
 };
 
 export function renderSection(section: Section, ctx: SiteContext, key: string): ReactNode {
