@@ -309,6 +309,7 @@ export function buildDemoBundle(style: SiteStyle): SiteBundle {
       id: `demo-${style}`,
       company_name: COMPANY,
       style,
+      package: style === "premium" ? "BUSINESS_PLUS" : "BUSINESS",
       status: "PREVIEW",
       preview_slug: `weber-${style}`,
       preview_protected: false,

@@ -48,7 +48,7 @@ async function resolve(props: Props): Promise<Resolved> {
   }
   if (!page) return { kind: "notfound" };
 
-  const ctx: SiteContext = { basePath: lookup.basePath, isPreview, companyName: site.company_name };
+  const ctx: SiteContext = { basePath: lookup.basePath, isPreview, companyName: site.company_name, motion: site.package === "BUSINESS_PLUS" };
   return { kind: "page", bundle, page, ctx, viaSlug: lookup.kind === "slug" };
 }
 

@@ -22,6 +22,7 @@ export function SiteFrame({
 
   return (
     <div
+      data-motion={ctx.motion ? "reveal" : undefined}
       style={vars as CSSProperties}
       className={`${fontClassNames(tokens.font_headline, tokens.font_body)} min-h-dvh bg-bg font-body text-ink antialiased`}
     >

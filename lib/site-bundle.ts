@@ -4,6 +4,8 @@ export interface SiteRow {
   id: string;
   company_name: string;
   style: SiteStyle;
+  /** Paket: Basis (STARTER), Profi (BUSINESS), Premium (BUSINESS_PLUS) — Premium schaltet Bewegung ein */
+  package: "STARTER" | "BUSINESS" | "BUSINESS_PLUS";
   status: "PREVIEW" | "LIVE";
   preview_slug: string | null;
   preview_protected: boolean;

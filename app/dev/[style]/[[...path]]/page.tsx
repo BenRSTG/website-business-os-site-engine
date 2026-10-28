@@ -21,7 +21,7 @@ async function DevPage(props: PageProps<"/dev/[style]/[[...path]]">) {
   const page = findPage(bundle, slug);
   if (!page) notFound();
 
-  const ctx: SiteContext = { basePath: `/dev/${style}`, isPreview: true, companyName: bundle.site.company_name };
+  const ctx: SiteContext = { basePath: `/dev/${style}`, isPreview: true, companyName: bundle.site.company_name, motion: bundle.site.package === "BUSINESS_PLUS" };
   return (
     <SiteFrame bundle={bundle} ctx={ctx}>
       <SitePage page={page} ctx={ctx} />

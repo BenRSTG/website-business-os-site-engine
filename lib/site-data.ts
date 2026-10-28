@@ -8,7 +8,7 @@ import { STYLE_PRESETS, designTokensSchema, type DesignTokens } from "./tokens";
 // Ausdrücklich nur die Spalten, die der anon key lesen darf — `select *` wäre durch die Spaltenrechte verboten
 // (Passwort-Hash, Organisation, Lead-Bezug und KI-Kosten sind für anon gesperrt, siehe Migration 0007).
 const SITE_COLUMNS =
-  "id, company_name, style, status, preview_slug, preview_protected, preview_expires_at, preview_password_set_at, custom_domain, primary_phone, primary_cta_label";
+  "id, company_name, style, package, status, preview_slug, preview_protected, preview_expires_at, preview_password_set_at, custom_domain, primary_phone, primary_cta_label";
 
 /**
  * Lädt Website, Design-Tokens und Seiten für einen Schlüssel ("slug:<x>" oder "host:<domain>").

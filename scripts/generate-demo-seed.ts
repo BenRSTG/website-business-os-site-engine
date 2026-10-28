@@ -23,8 +23,8 @@ const blocks = SITE_STYLES.map((style) => {
     )
     .join("\n");
   return `  -- Stil: ${style}
-  insert into sites (organization_id, lead_id, company_name, style, status, preview_slug, primary_phone, primary_cta_label)
-  values (v_org, v_lead, ${lit(b.site.company_name)}, '${style}', 'PREVIEW', ${lit(b.site.preview_slug)}, ${lit(b.site.primary_phone)}, ${lit(b.site.primary_cta_label)})
+  insert into sites (organization_id, lead_id, company_name, style, package, status, preview_slug, primary_phone, primary_cta_label)
+  values (v_org, v_lead, ${lit(b.site.company_name)}, '${style}', '${b.site.package}', 'PREVIEW', ${lit(b.site.preview_slug)}, ${lit(b.site.primary_phone)}, ${lit(b.site.primary_cta_label)})
   returning id into v_site;
 
   insert into design_tokens (site_id, palette_id, primary_color, accent_color, background_color, surface_color, text_color,

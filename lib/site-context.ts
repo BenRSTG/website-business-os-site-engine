@@ -3,6 +3,8 @@ export interface SiteContext {
   basePath: string;
   isPreview: boolean;
   companyName: string;
+  /** Einblend-Animationen (nur Premium) */
+  motion: boolean;
 }
 
 /** Interne Pfade bekommen den Basis-Pfad vorangestellt, alles andere (Anker, https, tel:, mailto:) bleibt unverändert. */
