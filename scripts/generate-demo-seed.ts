@@ -68,3 +68,12 @@ end $$;
 const target = resolve(__dirname, "../../dashboard/supabase/seed-demo-sites.sql");
 writeFileSync(target, sql);
 console.log(`Geschrieben: ${target} (${sql.length} Zeichen)`);
+
+// Gleiche Beispieldaten als JSON für das Dashboard: dessen Test prüft sie gegen die kopierten Abschnitts-Schemas,
+// damit die Kopie nicht unbemerkt vom site-engine abweicht (dashboard/tests/website/schema-drift.test.ts).
+const fixture = SITE_STYLES.flatMap((style) =>
+  buildDemoBundle(style).pages.map((p) => ({ style, slug: p.slug, sections: p.sections })),
+);
+const fixtureTarget = resolve(__dirname, "../../dashboard/tests/fixtures/site-engine-demo-sections.json");
+writeFileSync(fixtureTarget, JSON.stringify(fixture, null, 2) + "\n");
+console.log(`Geschrieben: ${fixtureTarget}`);
